@@ -2,6 +2,9 @@ name: Terraform Destroy Infrastructure
 
 on:
   workflow_dispatch:  # This allows manual triggering from GitHub Actions UI
+env:
+  AWS_ACCESS_KEY: ${{secrets.AWS_ACCESS_KEY}}
+  AWS_SECRET_ACCESS_KEY: ${{secrets.AWS_SECRET_ACCESS_KEY}}
 
 jobs:
   destroy-infra:
