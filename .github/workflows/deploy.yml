@@ -12,7 +12,7 @@ on:
       message:
         description: 'Custom message for this run'
         required: false
-        default: 'The pipeline is initiated By Zaid'
+        default: 'The pipeline is initiated By Ansari'
 
 env:
   AWS_ACCESS_KEY: ${{secrets.AWS_ACCESS_KEY}}
@@ -46,21 +46,3 @@ jobs:
               id: apply
               run: terraform apply --auto-approve
               working-directory: ./Terraform-VPC
-
-
-    destory-infra:
-      name: terraform-destory
-      runs-on: ubuntu-latest
-      needs: build-infra
-      if: github.event.inputs.destory == true
-      steps:
-        - name: Checkout
-          uses: actions/checkout@v2
-        - name: Set up terrafrom 
-          uses: hashicorp/setup-terraform@v2
-        - name: Terraform Init 
-          run: terraform init
-          working-directory: ./Terraform-VPC
-        - name: Terraform Destroy
-          run: terraform destroy --auto-approve
-          working-directory: ./Terraform-VPC
