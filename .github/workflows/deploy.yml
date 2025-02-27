@@ -1,5 +1,5 @@
 name: Terraform CI CD Pipeline for Deploying AWS Resources
-run-name: ${{github.actor}} has triggered the pipeline 
+run-name: The pipeline is triggred by ${{github.actor}} 
 
 
 on: 
@@ -7,8 +7,12 @@ on:
     branches:
           -'*'
 
-  # workflow_dispatch: # Allows maual triggering from github ui
-
+  workflow_dispatch: # Allows maual triggering from github ui
+    inputs:
+      message:
+        description: 'Custom message for this run'
+        required: false
+        default: 'The pipeline is initiated By Zaid'
 
 env:
   AWS_ACCESS_KEY: ${{secrets.AWS_ACCESS_KEY}}
@@ -20,6 +24,8 @@ jobs:
         name: terraform-ci-cd
         runs-on: ubuntu-latest
         steps:
+            - name: Custom message
+              run: echo "${{ github.event.inputs.message }}"
             - name: Checkout
               uses: actions/checkout@v2
             - name: Set up Terraform
